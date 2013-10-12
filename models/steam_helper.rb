@@ -16,6 +16,14 @@ class SteamHelper
       match = get_most_recent_match( account_id )
       player = match['players'].select{ |p| p['account_id'] == account_id }
       get_hero_by_id( player.first['hero_id'] )
+    end
+
+    def get_most_recent_match_details( account_id )
+      match_id = get_most_recent_match_id( account_id )
+      details = JSON.parse( get_match_details( match_id ) )
+    end
+
+    def get_some_intersting_information( account_id )
 
     end
 
@@ -31,6 +39,14 @@ class SteamHelper
       heroes[id]
     end
 
+    def get_match_details( match_id )
+      WebApi.json( "IDOTA2Match_#{DOTA2_ID}",
+        "GetMatchDetails",
+        1,
+        match_id: match_id
+      )
+    end
+
     def get_matches( account_id )
       WebApi.json( "IDOTA2Match_#{DOTA2_ID}",
         "GetMatchHistory",
@@ -44,6 +60,10 @@ class SteamHelper
         "GetHeroes",
         1
       )
+    end
+
+    def get_most_recent_match_id( account_id )
+      get_most_recent_match( account_id )['match_id']
     end
 
     def escape_spaces( string )
