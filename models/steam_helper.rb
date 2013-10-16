@@ -28,8 +28,14 @@ class SteamHelper
     def get_some_interesting_information
       player = get_player_info_for_last_match
       hero_name = get_hero_by_id( player['hero_id'] )
+      last_hits = get_last_hits_for_last_match
+      denies = get_denies_for_last_match
+      team = get_team_for_last_match
       puts "*"*100
-      puts "You played as #{hero_name}"
+      puts "You played as #{hero_name}!"
+      puts "You had #{last_hits} last_hits!"
+      puts "You had #{denies} denies!"
+      puts "You were on the #{team} team!"
       puts "*"*100
     end
 
@@ -43,6 +49,21 @@ class SteamHelper
 
     private
 
+    def get_team_for_last_match
+      player = get_player_info_for_last_match
+      slot = player['player_slot']
+      return ((slot.to_s(2).to_i & 10000000) != 0) ? 'dire' : 'radiant'
+    end
+
+    def get_denies_for_last_match
+      player = get_player_info_for_last_match
+      player['denies']
+    end
+
+    def get_last_hits_for_last_match
+      player = get_player_info_for_last_match
+      player['last_hits']
+    end
     def get_player_info_for_last_match
       match = get_most_recent_match_details
       player_info = match['result']['players'].select{ |p| p['account_id'] == account_id }[0]
