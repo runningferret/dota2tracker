@@ -30,12 +30,14 @@ class SteamHelper
       hero_name = get_hero_by_id( player['hero_id'] )
       last_hits = get_last_hits_for_last_match
       denies = get_denies_for_last_match
-      team = get_team_for_last_match
+      team = get_team_for_last_match.to_s
+      did_i_win = get_did_i_win ? "won" : "lost"
       puts "*"*100
       puts "You played as #{hero_name}!"
       puts "You had #{last_hits} last_hits!"
       puts "You had #{denies} denies!"
       puts "You were on the #{team} team!"
+      puts "You #{did_i_win} that match!"
       puts "*"*100
     end
 
@@ -48,11 +50,18 @@ class SteamHelper
     end 
 
     private
+    
+    def get_did_i_win
+      res = get_most_recent_match_details
+      winning_team = res['result']['radiant_win'] ? :radiant : :dire
+
+      return winning_team == get_team_for_last_match
+    end
 
     def get_team_for_last_match
       player = get_player_info_for_last_match
       slot = player['player_slot']
-      return ((slot.to_s(2).to_i & 10000000) != 0) ? 'dire' : 'radiant'
+      return ((slot.to_s(2).to_i & 10000000) != 0) ? :dire : :radiant
     end
 
     def get_denies_for_last_match
@@ -64,6 +73,7 @@ class SteamHelper
       player = get_player_info_for_last_match
       player['last_hits']
     end
+
     def get_player_info_for_last_match
       match = get_most_recent_match_details
       player_info = match['result']['players'].select{ |p| p['account_id'] == account_id }[0]
