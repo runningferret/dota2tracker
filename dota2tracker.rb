@@ -7,9 +7,9 @@ end
 get '/last_match', :provides => ['xml'] do
 <<-HERE
 <action>
-<app>SurVo</app>
+<app>findme</app>
 <parameters>
-<id>75</id>
+<id>708204</id>
 <user_parameters>
 <first_name>Bill</first_name>
 <last_name>Johnson</last_name>
