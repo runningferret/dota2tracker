@@ -1,3 +1,1 @@
-sinatra: ruby dota2tracker.rb
-guard: bundle exec guard -i
-
+sinatra: bundle exec ruby dota2tracker.rb -p $PORT
