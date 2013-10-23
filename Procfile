@@ -1,1 +1,1 @@
-sinatra: bundle exec ruby dota2tracker.rb -p $PORT
+web: bundle exec ruby dota2tracker.rb -p $PORT
