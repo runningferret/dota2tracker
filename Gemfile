@@ -7,4 +7,7 @@ gem 'rspec'
 gem 'foreman'
 gem 'guard'
 gem 'guard-rspec'
-gem 'debugger'
+
+group :development do
+  gem 'debugger'
+end
