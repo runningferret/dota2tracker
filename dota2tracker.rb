@@ -4,7 +4,7 @@ get '/' do
     "hello world"
 end
 
-get '/last_match' do
+get '/last_match', :provides => ['xml'] do
 <<-HERE
 <action>
 <app>SurVo</app>
