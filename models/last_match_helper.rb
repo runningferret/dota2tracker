@@ -1,3 +1,6 @@
+require './models/steam_helper'
+require 'json'
+
 class LastMatchHelper
   attr_reader :steam_helper, :account_id
 
@@ -7,7 +10,7 @@ class LastMatchHelper
   end
 
   def get_most_recent_match
-    JSON.parse( steam_helper.get_matches )['result']['matches']
+    JSON.parse( steam_helper.get_matches )['result']['matches'].first
   end
 
   def get_most_recent_match_details

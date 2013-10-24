@@ -1,7 +1,10 @@
 require 'sinatra'
+require './models/last_match_helper'
 
 get '/' do
-    "hello world"
+  account_id = params['accountid']
+  lmh = LastMatchHelper.new( "DF08597129E71A0EBF7A2FA880A437CD", account_id.to_i )
+  lmh.get_some_interesting_information
 end
 
 get '/last_match', :provides => ['xml'] do
