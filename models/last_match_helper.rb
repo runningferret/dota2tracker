@@ -26,7 +26,7 @@ class LastMatchHelper
     team = get_team_for_last_match.to_s
     did_i_win = won_most_recent? ? "won" : "lost"
     info = <<-INFO
-    You played as #{hero_name}! You had #{last_hits} last_hits!
+    You played as #{hero_name}! You had #{last_hits} last hits!
     You had #{denies} denies!
     You were on the #{team} team!
     You #{did_i_win} that match!
